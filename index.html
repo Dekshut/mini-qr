@@ -1,75 +1,461 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Для Насти 💗</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Для Насти 💗</title>
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.screen {
+  position: absolute;
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+  display: none;
+  box-sizing: border-box;
+}
+
+.screen.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  padding: 28px 10px;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  padding: 14px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  word-break: break-word;
+}
+
+.primary {
+  background: #ff4d88;
+  color: white;
+  box-shadow: 0 0 20px rgba(255,77,136,0.6);
+}
+
+.secondary {
+  background: #fff0f6;
+  color: #ff4d88;
+}
+
+.option {
+  background: #ffe6f0;
+  color: #c71585;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.fade-in {
+  animation: fade 0.6s ease forwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* Дождик из сердечек */
+.hearts {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  font-size: 18px;
+  animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-20px) scale(1); opacity: 1; }
+  100% { transform: translateY(110vh) scale(1.5); opacity: 0; }
+}
+
+/* Лапка кота */
+.cat-paw {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  font-size: 50px;
+  opacity: 0;
+  /* animation: pawSwipe 0.6s ease forwards; */
+}
+
+@keyframes pawSwipe {
+  0% { transform: translateX(100px) rotate(0deg); opacity:0; }
+  50% { opacity:1; }
+  100% { transform: translateX(20px) rotate(-20deg); opacity:1; }
+}
+
+.paw-swipe {
+  animation: pawSwipe 0.6s ease forwards;
+}
+
+/* Финальный экран */
+#finalModal {
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height:100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+  color:white;
+  font-size:18px;
+  text-align:center;
+  display:none;
+  padding-top: 200px;
+}
+
+#finalText {
+  max-width: 90%;
+  line-height: 1.6;
+}
+
+#finalText span {
+  display:block;
+  opacity:0;
+  animation: typefade 0.5s forwards;
+}
+
+@keyframes typefade {
+  to { opacity:1; }
+}
+
+/* Кнопка открытия сердца */
+.glow {
+  background: #ff1a75;
+  color: white;
+  box-shadow: 0 0 30px rgba(255,26,117,0.6);
+}
+
+/* Фейерверки */
+.firework {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Кнопка заблокирована */
+.btn.locked {
+  background-color: #ccc !important;
+  color: #888 !important;
+  cursor: not-allowed;
+  filter: blur(2px);
+}
+
+.btn.wrong{
+ width: 310px;
+}
+
+/* Замок поверх кнопки */
+.lock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  pointer-events: none; /* чтобы не мешал кликам */
+  opacity: 0; /* изначально скрыт */
+  transition: opacity 0.3s ease;
+}
+
+/* Плавное появление текста */
+.fade-in {
+  opacity: 0;
+  animation: fadeText 0.6s ease forwards;
+}
+
+@keyframes fadeText {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#funText {
+  margin-bottom: 8px;
+  color: #ff1a75;
+  font-weight: bold;
+  display: none;
+  text-align: center;
+}
+</style>
 </head>
 <body>
 
-  <!-- Экран 1 -->
-  <div class="screen active" id="screen1">
-    <div class="card">
-      <h2>Обнаружен самый важный человек в жизни Дениса 💞</h2>
-      <p>
-        Имя: Настя<br>
-        Статус: бесценная
+<!-- Экран 1 -->
+<div class="screen active" id="screen1">
+  <div class="card fade-in">
+    <h2>Обнаружен самый важный человек в жизни Дениса 💞</h2>
+    <p>Имя: Анастасия<br>Статус: бесценная</p>
+    <p><b>Подтвердить статус?</b></p>
+    <div class="buttons">
+      <button class="btn secondary" id="doubtBtn">🤍 Сомневаюсь</button>
+      <button class="btn primary" id="confirmBtn">💗 Подтвердить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Экран 2 -->
+<div class="screen" id="screen2">
+  <div class="card fade-in">
+    <h2>Статус подтверждён ✨</h2>
+    <p>Уточнение: кем именно является Анастасия</p>
+    <p id="funText">Да ну ты че, офигела? 😄</p>
+    <div class="buttons">
+     <div style="position: relative; display: inline-block;">
+        <button class="btn wrong" id="wrongBtn">🌸 Просто девушка</button>
+        <div class="lock" id="lock">🔒</div>
+      </div>
+      <button class="btn option correct">💞 Любовь всей жизни</button>
+    </div>
+  </div>
+</div>
+
+<!-- Экран 3 -->
+<div class="screen" id="screen3">
+  <div class="card fade-in">
+    <h2>С днём рождения, моя мамочка 💗</h2>
+
+    <!-- Поздравление от кота -->
+    <div style="text-align:center; margin-bottom:20px;">
+      <img src="cat2.jpeg" alt="Кот Зефир" style="
+         width: 200px;
+         height: 200px;
+         margin-bottom: 10px;
+         object-fit: cover;
+         border-radius: 30px;
+       ">
+      <p style="line-height:1.5;">
+        Мяу! 🐾 С днём рождения, мамочка!<br>
+        Я очень рад за тебя и поздравляю!<br>
+        Желаю тебе много вкусняшек и радости.<br>
+        Пусть твой день будет самым классным!<br><br>
+
+        Я скучаю и жду тебя дома.<br>
+        Хочу, чтобы ты скорее пришла.<br>
+        Обниму тебя лапками и буду мурлыкать.<br>
+        Люблю тебя, твой Зефир 💖
       </p>
-      <p><b>Подтвердить статус?</b></p>
-
-      <div class="buttons">
-        <button class="btn secondary runaway" id="doubtBtn">🤍 Сомневаюсь</button>
-        <button class="btn primary" id="confirmBtn">💗 Подтвердить</button>
-      </div>
     </div>
+
+    <!-- Поздравление от тебя -->
+    <button class="btn glow" id="heartOpen">💖 Открыть поздравление от Папы</button>
   </div>
+</div>
 
-  <!-- Экран 2 -->
-  <div class="screen" id="screen2">
-    <div class="card fade-in">
-      <h2>Статус подтверждён ✨</h2>
-      <p>Уточнение: кем именно является Настя?</p>
+<!-- Лапка кота -->
+<div class="cat-paw" id="paw">🐾</div>
 
-      <div class="buttons">
-        <button class="btn option wrong">🌸 Просто девушка</button>
-        <button class="btn option correct">🌍 Мой мир</button>
-        <button class="btn option correct">💞 Любовь всей жизни</button>
-      </div>
+<!-- Дождик сердечек -->
+<div class="hearts"></div>
 
-      <p class="hint hidden" id="hintText">Не угадала 😌 Попробуй ещё раз.</p>
-    </div>
-  </div>
+<!-- Финальная модалка -->
+<div id="finalModal">
+  <div id="finalText"></div>
+</div>
 
-  <!-- Экран 3 -->
-  <div class="screen" id="screen3">
-    <div class="card final fade-in">
-      <div class="photo-wrapper">
-        <!-- ВСТАВЬ СВОЮ ФОТКУ -->
-        <img src="photo.jpg" alt="Мы" />
-      </div>
+<script>
+const screen1 = document.getElementById("screen1");
+const screen2 = document.getElementById("screen2");
+const screen3 = document.getElementById("screen3");
+const doubtBtn = document.getElementById("doubtBtn");
+const confirmBtn = document.getElementById("confirmBtn");
+const paw = document.getElementById("paw");
+const finalModal = document.getElementById("finalModal");
+const finalText = document.getElementById("finalText");
+const funText = document.getElementById("funText");
 
-      <h2>С днём рождения, моя любимая 🤍</h2>
-      <p>
-        Ты — мой дом. Моё спокойствие. Моё самое большое счастье.<br><br>
-        Я люблю тебя по-настоящему. Дорожу тобой. Ценю тебя.<br><br>
-        Я хочу идти с тобой всю жизнь. Быть рядом. Быть поддержкой. Быть опорой.<br><br>
-        Пусть у тебя будет всё — уверенность, успех, вдохновение, радость.<br>
-        А я буду рядом всегда 💗
-      </p>
+const wrongBtn = document.querySelector(".wrong");
+const correctBtn = document.querySelector(".correct");
 
-      <button class="btn glow" id="heartOpen">💖 Открыть сердце</button>
+// --------- Дождик сердечек ---------
+const heartsContainer = document.querySelector(".hearts");
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (10+Math.random()*20) + "px";
+  heart.textContent = "💖";
+  heartsContainer.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart, 300);
 
-      <div class="forever hidden" id="foreverText">
-        Спасибо, что выбрала меня.<br>
-        Навсегда твой 💞
-      </div>
-    </div>
-  </div>
+// --------- Кнопка сомнения ---------
+doubtBtn.addEventListener("click", () => {
+  // Дёргание кнопки влево-вправо
+  let i = 0;
+  const shakes = [10, -10, 6, -6, 3, -3, 0];
+  const interval = setInterval(() => {
+    doubtBtn.style.transform = `translateX(${shakes[i]}px)`;
+    i++;
+    if (i >= shakes.length) {
+      clearInterval(interval);
 
-  <div class="cat-paw hidden" id="paw">🐾</div>
-  <div class="hearts"></div>
+      // Исчезновение кнопки
+      doubtBtn.style.transition = "opacity 0.5s";
+      doubtBtn.style.opacity = "0";
 
-  <script src="script.js"></script>
+      // Показ текста после исчезновения
+      setTimeout(() => {
+        doubtBtn.style.display = "none";
+        paw.innerText = "Даже Зефир против такого варианта 😌 🐾";
+        paw.style.opacity = "1";
+
+        // Добавляем класс для запуска анимации
+        paw.classList.add("paw-swipe");
+      }, 500);
+    }
+  }, 50);
+});
+
+correctBtn.onclick = () => {
+  screen2.classList.remove("active");
+  screen3.classList.add("active");
+};
+
+// --------- Подтверждение статуса ---------
+confirmBtn.onclick = () => {
+  paw.style.opacity = "0";
+  paw.innerText = "";
+  screen1.classList.remove("active");
+  screen2.classList.add("active");
+};
+
+// --------- Экран 2 ---------
+funText.style.display = "none";
+let firstClickWrong = false;
+wrongBtn.onclick = () => {
+  if (wrongBtn.classList.contains("locked")) return; // только один раз
+
+  // Появление текста над кнопкой
+  funText.style.display = "block";
+  funText.classList.add("fade-in");
+
+  // Блюрим кнопку
+  wrongBtn.classList.add("locked");
+
+  // Показываем замок поверх кнопки
+  lock.style.opacity = "1";
+};
+
+// --------- Финал с типингом ---------
+document.getElementById("heartOpen").onclick = ()=>{
+  finalModal.style.display = "flex";
+  finalText.innerHTML = ""; // чистим
+  finalText.style.maxHeight = "70vh";
+  finalText.style.overflowY = "auto";
+
+  const fullText = 
+  "С днём рождения, моя любимая 💗\n" +
+  "Пусть день твой будет радостным.\n" +
+  "Здоровья, счастья и вдохновения.\n" +
+  "Ты заслуживаешь только лучшего!\n\n" +
+
+  "Моё самое большое счастье - это ты.\n" +
+  "Я люблю тебя глубоко и искренне.\n" +
+  "Дорожу каждым мгновением с тобой.\n" +
+  "Хочу идти с тобой всю жизнь.\n\n" +
+
+  "Быть рядом в каждом этапе.\n" +
+  "Быть твоей поддержкой и опорой.\n" +
+  "Пусть будет у тебя уверенность, успех и радость.\n" +
+  "А я буду рядом. Всегда. 💗";
+
+  let idx = 0;
+
+  // --------- Запускаем фейерверки каждые 300 мс ---------
+  const fireworkInterval = setInterval(createFirework, 300);
+
+  function typeChar(){
+    if(idx < fullText.length){
+      const char = fullText[idx];
+      finalText.innerHTML += (char === "\n" ? "<br>" : char);
+      idx++;
+      setTimeout(typeChar, 50); // скорость набора
+    } else {
+      // Когда текст набран, останавливаем создание новых фейерверков
+      clearInterval(fireworkInterval);
+    }
+  }
+  typeChar();
+
+  if(navigator.vibrate) navigator.vibrate([100,50,100]);
+};
+
+function createFirework(){
+  const fire = document.createElement("div");
+  fire.className = "firework";
+  const size = 8 + Math.random()*12;
+  fire.style.width = fire.style.height = size + "px";
+  fire.style.background = `hsl(${Math.random()*360},100%,70%)`;
+
+  // use fixed so it doesn't affect layout
+  fire.style.position = "fixed";
+  fire.style.pointerEvents = "none";
+  fire.style.left = Math.random()*100 + "vw";
+  fire.style.top = Math.random()*50 + "vh";
+
+  document.body.appendChild(fire);
+
+  fire.animate([
+    {opacity:1, transform:'scale(1)'},
+    {opacity:0, transform:`scale(${2 + Math.random()*5})`}
+  ], {duration:1500 + Math.random()*1000, easing:'ease-out'});
+
+  setTimeout(()=>fire.remove(), 2500);
+}
+</script>
 </body>
 </html>
