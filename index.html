@@ -294,6 +294,10 @@ body {
     <!-- Поздравление от тебя -->
     <button class="btn glow" id="heartOpen">💖 Открыть поздравление от Папы</button>
   </div>
+
+
+  <!-- Вставляем аудио в HTML -->
+  <audio id="bgAudio" src="music.mp3" preload="auto" loop autoplay></audio>
 </div>
 
 <!-- Лапка кота -->
@@ -427,7 +431,7 @@ document.getElementById("heartOpen").onclick = ()=>{
       const char = fullText[idx];
       finalText.innerHTML += (char === "\n" ? "<br>" : char);
       idx++;
-      setTimeout(typeChar, 30); // скорость набора
+      setTimeout(typeChar, 20); // скорость набора
     } else {
       // Когда текст набран, останавливаем создание новых фейерверков
       clearInterval(fireworkInterval);
