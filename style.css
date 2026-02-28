@@ -23,18 +23,14 @@ body {
 
 .card {
   background: white;
-  padding: 30px 20px;
+  padding: 28px 20px;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
   text-align: center;
 }
 
-h2 {
-  margin-top: 0;
-}
-
 .buttons {
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -58,23 +54,51 @@ h2 {
   background: #f2f2f2;
 }
 
-.primary:hover {
+.option {
+  background: #fff0f6;
+}
+
+.btn:hover {
   transform: scale(1.05);
 }
 
-.glow {
-  background: #ff4d88;
-  color: white;
-  box-shadow: 0 0 20px rgba(255, 77, 136, 0.6);
-}
-
 .fade-in {
-  animation: fade 0.8s ease forwards;
+  animation: fade 0.6s ease forwards;
 }
 
 @keyframes fade {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.photo-wrapper {
+  margin-bottom: 15px;
+}
+
+.photo-wrapper img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255,105,180,0.6);
+}
+
+.glow {
+  background: #ff4d88;
+  color: white;
+  box-shadow: 0 0 20px rgba(255,77,136,0.6);
 }
 
 .forever {
@@ -87,16 +111,15 @@ h2 {
   display: none;
 }
 
-/* Плавающие сердечки */
-
-.hearts span {
+.cat-paw {
   position: absolute;
-  bottom: -20px;
-  font-size: 20px;
-  animation: float 6s linear infinite;
+  bottom: 20px;
+  right: 20px;
+  font-size: 40px;
+  animation: pawSwipe 0.6s ease forwards;
 }
 
-@keyframes float {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-100vh); opacity: 0; }
+@keyframes pawSwipe {
+  from { transform: translateX(100px); }
+  to { transform: translateX(0); }
 }

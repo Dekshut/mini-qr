@@ -8,50 +8,66 @@
 </head>
 <body>
 
+  <!-- Экран 1 -->
   <div class="screen active" id="screen1">
     <div class="card">
-      <p class="typing" id="typingText"></p>
+      <h2>Обнаружен самый важный человек в жизни Дениса 💞</h2>
+      <p>
+        Имя: Настя<br>
+        Статус: бесценная
+      </p>
+      <p><b>Подтвердить статус?</b></p>
 
       <div class="buttons">
-        <button class="btn secondary" id="doubtBtn">🤍 Сомневаюсь</button>
+        <button class="btn secondary runaway" id="doubtBtn">🤍 Сомневаюсь</button>
         <button class="btn primary" id="confirmBtn">💗 Подтвердить</button>
       </div>
     </div>
   </div>
 
+  <!-- Экран 2 -->
   <div class="screen" id="screen2">
     <div class="card fade-in">
-      <h2>Статус обновлён 💞</h2>
-      <p>
-        Настя — любовь всей жизни<br/>
-        и самое большое счастье.
-      </p>
-      <button class="btn primary" id="openMessageBtn">💌 Открыть сообщение</button>
+      <h2>Статус подтверждён ✨</h2>
+      <p>Уточнение: кем именно является Настя?</p>
+
+      <div class="buttons">
+        <button class="btn option wrong">🌸 Просто девушка</button>
+        <button class="btn option correct">🌍 Мой мир</button>
+        <button class="btn option correct">💞 Любовь всей жизни</button>
+      </div>
+
+      <p class="hint hidden" id="hintText">Не угадала 😌 Попробуй ещё раз.</p>
     </div>
   </div>
 
+  <!-- Экран 3 -->
   <div class="screen" id="screen3">
-    <div class="card fade-in final">
+    <div class="card final fade-in">
+      <div class="photo-wrapper">
+        <!-- ВСТАВЬ СВОЮ ФОТКУ -->
+        <img src="photo.jpg" alt="Мы" />
+      </div>
+
       <h2>С днём рождения, моя любимая 🤍</h2>
       <p>
-        Ты — мой дом, мой покой, моя радость.<br/><br/>
-        Самое большое счастье в моей жизни — быть с тобой.<br/><br/>
-        Я люблю тебя по-настоящему.<br/>
-        Дорожу тобой. Ценю тебя.<br/><br/>
-        Я хочу идти с тобой всю жизнь.<br/>
-        Быть рядом. Быть поддержкой. Быть опорой.<br/><br/>
-        Пусть у тебя будет всё — уверенность, успех, вдохновение.<br/>
+        Ты — мой дом. Моё спокойствие. Моё самое большое счастье.<br><br>
+        Я люблю тебя по-настоящему. Дорожу тобой. Ценю тебя.<br><br>
+        Я хочу идти с тобой всю жизнь. Быть рядом. Быть поддержкой. Быть опорой.<br><br>
+        Пусть у тебя будет всё — уверенность, успех, вдохновение, радость.<br>
         А я буду рядом всегда 💗
       </p>
 
-      <button class="btn glow" id="foreverBtn">💞 Принять любовь</button>
+      <button class="btn glow" id="heartOpen">💖 Открыть сердце</button>
+
       <div class="forever hidden" id="foreverText">
-        Статус: вместе<br/>
-        Срок действия: навсегда ✨
+        Спасибо, что выбрала меня.<br>
+        Навсегда твой 💞
       </div>
     </div>
   </div>
 
+  <div class="cat-paw hidden" id="paw">🐾</div>
   <div class="hearts"></div>
 
   <script src="script.js"></script>
