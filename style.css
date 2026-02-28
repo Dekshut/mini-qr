@@ -1,36 +1,102 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #ffe6f0, #fceaff);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ffdee9, #b5fffc);
-  margin: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.container {
+.screen {
+  position: absolute;
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.card {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
   text-align: center;
 }
 
-.emoji-btn {
-  font-size: 4rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s;
+h2 {
+  margin-top: 0;
 }
 
-.emoji-btn:hover {
-  transform: scale(1.2);
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn {
+  padding: 14px;
+  border-radius: 18px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primary {
+  background: #ff6fa5;
+  color: white;
+}
+
+.secondary {
+  background: #f2f2f2;
+}
+
+.primary:hover {
+  transform: scale(1.05);
+}
+
+.glow {
+  background: #ff4d88;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 77, 136, 0.6);
+}
+
+.fade-in {
+  animation: fade 0.8s ease forwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.forever {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #ff4d88;
 }
 
 .hidden {
   display: none;
 }
 
-#message {
-  margin-top: 20px;
-  font-size: 1.5rem;
-  line-height: 1.6;
-  color: #333;
+/* Плавающие сердечки */
+
+.hearts span {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100vh); opacity: 0; }
 }

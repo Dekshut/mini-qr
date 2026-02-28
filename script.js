@@ -1,20 +1,56 @@
-const heartBtn = document.getElementById('heart');
-const messageDiv = document.getElementById('message');
+const text = `Обнаружен самый важный человек в жизни Дениса.
 
-const message = `Настя, ты — мой дом, мой человек, мой мир. 
-Я люблю тебя больше, чем могу объяснить словами. 
-Ты самая ценная часть моей жизни 💛`;
+Имя: Настя
+Статус: бесценная
 
-function typeWriter(text, i = 0) {
+Подтвердить статус?`;
+
+const typingEl = document.getElementById("typingText");
+let i = 0;
+
+function typeWriter() {
   if (i < text.length) {
-    messageDiv.innerHTML += text.charAt(i);
+    typingEl.innerHTML += text.charAt(i);
     i++;
-    setTimeout(() => typeWriter(text, i), 50);
+    setTimeout(typeWriter, 30);
   }
 }
 
-heartBtn.addEventListener('click', () => {
-  heartBtn.style.display = 'none';
-  messageDiv.classList.remove('hidden');
-  typeWriter(message);
-});
+typeWriter();
+
+const screen1 = document.getElementById("screen1");
+const screen2 = document.getElementById("screen2");
+const screen3 = document.getElementById("screen3");
+
+document.getElementById("confirmBtn").onclick = () => {
+  screen1.classList.remove("active");
+  screen2.classList.add("active");
+};
+
+document.getElementById("openMessageBtn").onclick = () => {
+  screen2.classList.remove("active");
+  screen3.classList.add("active");
+};
+
+document.getElementById("foreverBtn").onclick = () => {
+  document.getElementById("foreverText").classList.remove("hidden");
+};
+
+document.getElementById("doubtBtn").onclick = () => {
+  alert("Этот статус установлен навсегда 😌");
+};
+
+/* Генерация сердечек */
+const heartsContainer = document.querySelector(".hearts");
+
+setInterval(() => {
+  const heart = document.createElement("span");
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 10 + 15 + "px";
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}, 500);

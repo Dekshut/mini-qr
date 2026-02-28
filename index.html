@@ -1,19 +1,59 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Для Насти 💛</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Для Насти 💗</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Нажми на ❤️</h1>
-    <div class="emoji-container">
-      <button class="emoji-btn" id="heart">❤️</button>
+
+  <div class="screen active" id="screen1">
+    <div class="card">
+      <p class="typing" id="typingText"></p>
+
+      <div class="buttons">
+        <button class="btn secondary" id="doubtBtn">🤍 Сомневаюсь</button>
+        <button class="btn primary" id="confirmBtn">💗 Подтвердить</button>
+      </div>
     </div>
-    <div id="message" class="hidden"></div>
   </div>
+
+  <div class="screen" id="screen2">
+    <div class="card fade-in">
+      <h2>Статус обновлён 💞</h2>
+      <p>
+        Настя — любовь всей жизни<br/>
+        и самое большое счастье.
+      </p>
+      <button class="btn primary" id="openMessageBtn">💌 Открыть сообщение</button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen3">
+    <div class="card fade-in final">
+      <h2>С днём рождения, моя любимая 🤍</h2>
+      <p>
+        Ты — мой дом, мой покой, моя радость.<br/><br/>
+        Самое большое счастье в моей жизни — быть с тобой.<br/><br/>
+        Я люблю тебя по-настоящему.<br/>
+        Дорожу тобой. Ценю тебя.<br/><br/>
+        Я хочу идти с тобой всю жизнь.<br/>
+        Быть рядом. Быть поддержкой. Быть опорой.<br/><br/>
+        Пусть у тебя будет всё — уверенность, успех, вдохновение.<br/>
+        А я буду рядом всегда 💗
+      </p>
+
+      <button class="btn glow" id="foreverBtn">💞 Принять любовь</button>
+      <div class="forever hidden" id="foreverText">
+        Статус: вместе<br/>
+        Срок действия: навсегда ✨
+      </div>
+    </div>
+  </div>
+
+  <div class="hearts"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
